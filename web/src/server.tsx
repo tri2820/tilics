@@ -65,7 +65,7 @@ export async function getPRFiles(
         },
       }
     );
-    console.log("response", response);
+    console.log("response", response.ok, response.status, response.text());
 
     const json = await response.json();
 
