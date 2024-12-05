@@ -54,6 +54,8 @@ export async function getPRFiles(
     const api_key =
       event?.nativeEvent.context.cloudflare?.env.GITHUB_ACCESS_TOKEN ??
       process.env.GITHUB_ACCESS_TOKEN;
+
+    console.log("api_key", api_key, event?.nativeEvent.context.cloudflare);
     const response = await fetch(
       `https://api.github.com/repos/unibas-tilics/tilics/pulls/${number}/files`,
       {
@@ -63,6 +65,8 @@ export async function getPRFiles(
         },
       }
     );
+    console.log("response", response);
+
     const json = await response.json();
 
     cacheStore[number] = {
@@ -76,6 +80,7 @@ export async function getPRFiles(
     };
   } catch (e) {
     console.error(e);
+
     return {
       files: [],
       cacheStatus: "error",
